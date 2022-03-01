@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Security.Cryptography.X509Certificates;
 using UnityEngine;
 using UnityEngine.SceneManagement; 
@@ -33,6 +34,8 @@ public class Player : MonoBehaviour
 
     private PlayerStat _playerStat;
     private EnemyStat _enemyStat;
+    private MushroomStat _mushroomStat;
+    
     
     
     void Start ()
@@ -145,13 +148,27 @@ public class Player : MonoBehaviour
     {
         if (col.gameObject.tag == "Enemy")
         {
-            _enemyStat = col.gameObject.GetComponent<EnemyStat>();
+            string monsterName = col.gameObject.name.Substring(0, 3);
+            switch (monsterName)
+            {
+                case "Sli":
+                    _enemyStat = col.gameObject.GetComponent<EnemyStat>();
+                    PlayerStat._playerStat.Hit(_enemyStat.atk);
+                    break;
+                            
+                case "Mus":
+                    _mushroomStat = col.gameObject.GetComponent<MushroomStat>();
+                    PlayerStat._playerStat.Hit(_mushroomStat.atk);
+                    break;
+            }
+            
+            
             onDamaged(col.transform.position);
             
         }
     }
 
-    void onDamaged(Vector2 targetPos)
+    public void onDamaged(Vector2 targetPos)
     {
         gameObject.layer = 8;
         
@@ -160,8 +177,7 @@ public class Player : MonoBehaviour
         int dirc = targetPos.x - transform.position.x > 0 ? -1 : 1;
         rigid.AddForce(new Vector2(dirc,1) * 7, ForceMode2D.Impulse);
         
-        PlayerStat._playerStat.Hit(_enemyStat.atk); // 맞으면 hp 줄어듦
-
+        
         Invoke("offDamaged", 2);
     }
 
@@ -210,10 +226,21 @@ public class Player : MonoBehaviour
                 {
                     if (collider.tag == "Enemy")
                     {
-                        collider.GetComponent<Enemy>().onDamaged(transform.position);
+                        string monsterName = collider.name.Substring(0, 3);
+                        switch (monsterName)
+                        {
+                            case "Sli":
+                                collider.GetComponent<Enemy>().onDamaged(transform.position);
+                                collider.GetComponent<Enemy>().beingDamaged = true;
+                                break;
+                            
+                            case "Mus":
+                                collider.GetComponent<Mushroom>().onDamaged(transform.position);
+                                collider.GetComponent<Mushroom>().beingDamaged = true;
+                                break;
+                        }
                         
                         
-                        collider.GetComponent<Enemy>().beingDamaged = true;
                         StartCoroutine(beingDamagedFalse(collider));
                     }
                 }
@@ -263,7 +290,17 @@ public class Player : MonoBehaviour
     IEnumerator beingDamagedFalse(Collider2D col)
     {
         yield return new WaitForSeconds(0.5f);
-        col.GetComponent<Enemy>().beingDamaged = false; 
+        string monsterName = col.name.Substring(0, 3);
+        switch (monsterName)
+        {
+            case "Sli":
+                col.GetComponent<Enemy>().beingDamaged = false;
+                break;
+                            
+            case "Mus":
+                col.GetComponent<Mushroom>().beingDamaged = false;
+                break;
+        }
     }
     
     IEnumerator CheckPlayerDeath()

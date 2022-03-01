@@ -44,10 +44,27 @@ public class bullet : MonoBehaviour
     {
         if (collision.gameObject.tag == "Enemy")
         {
-            collision.gameObject.GetComponent<Enemy>().onDamaged(transform.position);
+
             
-            collision.gameObject.GetComponent<Enemy>().beingDamaged = true;
-            StartCoroutine(beingDamagedFalse(collision.gameObject.GetComponent<Enemy>()));
+            string monsterName = collision.gameObject.name.Substring(0, 3);
+            switch (monsterName)
+            {
+                case "Sli":
+                    collision.gameObject.GetComponent<Enemy>().onDamaged(transform.position);
+                    collision.gameObject.GetComponent<Enemy>().beingDamaged = true;
+                    StartCoroutine(enemybeingDamagedFalse(collision.gameObject.GetComponent<Enemy>()));
+                    break;
+                            
+                case "Mus":
+                    collision.gameObject.GetComponent<Mushroom>().onDamaged(transform.position);
+                    collision.gameObject.GetComponent<Mushroom>().beingDamaged = true;
+                    StartCoroutine(mushroombeingDamagedFalse(collision.gameObject.GetComponent<Mushroom>()));
+                    break;
+            }
+            
+            
+            
+            
             fakeDestroyBullet();
         }
         
@@ -56,13 +73,20 @@ public class bullet : MonoBehaviour
 
     }
     
-    IEnumerator beingDamagedFalse(Enemy enemy)
+    IEnumerator enemybeingDamagedFalse(Enemy enemy)
     {
-        
         yield return new WaitForSeconds(0.5f);
-        enemy.beingDamaged = false; 
-        
+        enemy.beingDamaged = false;
     }
+    
+    IEnumerator mushroombeingDamagedFalse(Mushroom mushroom)
+    {
+        yield return new WaitForSeconds(0.5f);
+        mushroom.beingDamaged = false;
+    }
+    
+    
+    
     
     IEnumerator realDestroyBullet()
     {

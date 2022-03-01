@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyStat : MonoBehaviour
+public class MushroomStat : MonoBehaviour
 {
+    
+
     public int atk; //공격력
     public int def; //방어력
     public int currentHp;
@@ -25,11 +27,13 @@ public class EnemyStat : MonoBehaviour
     {
         int dmg = playerAtk;
         currentHp -= dmg;
+        // anim.SetTrigger("die");
 
+        
         if (currentHp <= 0)
         { 
             anim.SetTrigger("die");
-            Invoke("destroyEnemy", 0.35f);
+            Invoke("destroyEnemy", 0.5f);
         }
     }
 
