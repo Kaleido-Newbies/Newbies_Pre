@@ -60,6 +60,12 @@ public class bullet : MonoBehaviour
                     collision.gameObject.GetComponent<Mushroom>().beingDamaged = true;
                     StartCoroutine(mushroombeingDamagedFalse(collision.gameObject.GetComponent<Mushroom>()));
                     break;
+                
+                case "Gob":
+                    collision.gameObject.GetComponent<Goblin>().onDamaged(transform.position);
+                    collision.gameObject.GetComponent<Goblin>().beingDamaged = true;
+                    StartCoroutine(goblinbeingDamagedFalse(collision.gameObject.GetComponent<Goblin>()));
+                    break;
             }
             
             
@@ -84,6 +90,14 @@ public class bullet : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         mushroom.beingDamaged = false;
     }
+    
+    IEnumerator goblinbeingDamagedFalse(Goblin goblin)
+    {
+        yield return new WaitForSeconds(0.5f);
+        goblin.beingDamaged = false;
+    }
+    
+    
     
     
     
