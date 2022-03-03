@@ -252,8 +252,6 @@ public class Player : MonoBehaviour
                             
                             
                         }
-                        
-                        
                         StartCoroutine(beingDamagedFalse(collider));
                     }
                 }
