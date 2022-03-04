@@ -36,6 +36,7 @@ public class Player : MonoBehaviour
     private EnemyStat _enemyStat;
     private MushroomStat _mushroomStat;
     private GoblinStat _goblinStat;
+    private GhostStat _ghostStat;
     
     
     
@@ -166,7 +167,11 @@ public class Player : MonoBehaviour
                     _goblinStat = col.gameObject.GetComponent<GoblinStat>();
                     PlayerStat._playerStat.Hit(_goblinStat.atk);
                     break;
-                    
+                
+                case "Gho":
+                    _ghostStat = col.gameObject.GetComponent<GhostStat>();
+                    PlayerStat._playerStat.Hit(_ghostStat.atk);
+                    break;
             }
             
             onDamaged(col.transform.position);
@@ -250,6 +255,10 @@ public class Player : MonoBehaviour
                                 collider.GetComponent<Goblin>().beingDamaged = true;
                                 break;
                             
+                            case "Gho":
+                                collider.GetComponent<Ghost>().onDamaged(transform.position);
+                                collider.GetComponent<Ghost>().beingDamaged = true;
+                                break;
                             
                         }
                         StartCoroutine(beingDamagedFalse(collider));

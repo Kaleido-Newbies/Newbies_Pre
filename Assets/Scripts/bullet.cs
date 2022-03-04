@@ -66,6 +66,12 @@ public class bullet : MonoBehaviour
                     collision.gameObject.GetComponent<Goblin>().beingDamaged = true;
                     StartCoroutine(goblinbeingDamagedFalse(collision.gameObject.GetComponent<Goblin>()));
                     break;
+                
+                case "Gho":
+                    collision.gameObject.GetComponent<Ghost>().onDamaged(transform.position);
+                    collision.gameObject.GetComponent<Ghost>().beingDamaged = true;
+                    StartCoroutine(ghostbeingDamagedFalse(collision.gameObject.GetComponent<Ghost>()));
+                    break;
             }
             
             
@@ -95,6 +101,12 @@ public class bullet : MonoBehaviour
     {
         yield return new WaitForSeconds(0.5f);
         goblin.beingDamaged = false;
+    }
+    
+    IEnumerator ghostbeingDamagedFalse(Ghost ghost)
+    {
+        yield return new WaitForSeconds(0.5f);
+        ghost.beingDamaged = false;
     }
     
     

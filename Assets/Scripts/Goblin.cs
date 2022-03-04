@@ -60,7 +60,7 @@ public class Goblin : MonoBehaviour
 
         if (!isAttacking)
         {
-            Debug.Log("In function");
+            // Debug.Log("In function");
             readyToAttack();
         }
 
