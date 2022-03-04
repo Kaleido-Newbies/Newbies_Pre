@@ -108,7 +108,7 @@ public class Player : MonoBehaviour
             animator.SetBool("run", true);
             spriterenderer.flipX = true;
             
-
+            
         }
 			
         else if(Input.GetAxisRaw ("Horizontal") > 0){
