@@ -1,0 +1,45 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class MushroomStat : MonoBehaviour
+{
+    
+
+    public int atk; //공격력
+    public int def; //방어력
+    public int currentHp;
+    public int hp;
+
+    private Animator anim;
+    
+    void Start()
+    {
+        anim = GetComponent<Animator>();
+        
+        currentHp = hp;
+       
+        
+        
+    }
+
+    public void Hit(int playerAtk)
+    {
+        int dmg = playerAtk;
+        currentHp -= dmg;
+        // anim.SetTrigger("die");
+
+        
+        if (currentHp <= 0)
+        { 
+            anim.SetTrigger("die");
+            Invoke("destroyEnemy", 0.5f);
+        }
+    }
+
+    void destroyEnemy()
+    {
+        Destroy(gameObject);
+    }
+
+}
