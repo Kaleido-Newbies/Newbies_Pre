@@ -10,7 +10,7 @@ public class bullet : MonoBehaviour
     private bool isFlip;
     private BoxCollider2D col;
     private SpriteRenderer spriterenderer;
-    
+
 
     void Start()
     {
@@ -22,6 +22,7 @@ public class bullet : MonoBehaviour
         
         playerSprite = GameObject.Find("Player").GetComponent<SpriteRenderer>();
         isFlip = playerSprite.flipX;
+        
     }
 
     

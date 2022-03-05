@@ -22,7 +22,7 @@ public class BackgroundScrolling : MonoBehaviour
     void Update()
     {
         backGround = this;
-        backGroundMove();
+
     }
 
     void backGroundMove()
