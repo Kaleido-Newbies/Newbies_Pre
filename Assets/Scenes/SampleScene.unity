@@ -5161,8 +5161,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 2057267990}
   speed: 3
-  center: {x: 83.8, y: 5}
-  size: {x: 195.8, y: 25}
+  center: {x: 83.8, y: 1}
+  size: {x: 195.8, y: 18}
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0
